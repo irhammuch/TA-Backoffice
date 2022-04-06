@@ -1,0 +1,88 @@
+<div class="d-grid gap-2 d-md-flex justify-content-md-between align-items-md-end my-4">
+  <form [formGroup]="filterForm" (ngSubmit)="onFilterSubmit()" class="row align-items-md-end">
+    <div class="form-group col-auto">
+      <label for="filter-employee-min-salary">Min. Salary</label>
+      <input id="filter-employee-min-salary" class="form-control" type="text" placeholder="Input Min. Salary"
+        formControlName="minSalary">
+    </div>
+    <div class="form-group col-auto">
+      <label for="filter-employee-max-salary">Max. Salary</label>
+      <input id="filter-employee-max-salary" class="form-control" type="text" placeholder="Input Max. Salary"
+        formControlName="maxSalary">
+    </div>
+    <div class="form-group col-auto">
+      <label for="filter-employee-status">Status</label>
+      <select id="filter-employee-status" class="form-select form-control" aria-label="Select Status"
+        formControlName="status">
+        <option disabled selected value>Select Status</option>
+        <option value="Permanent">Permanent</option>
+        <option value="Contract">Contract</option>
+      </select>
+    </div>
+    <div class="form-group col-auto">
+      <label for="filter-employee-group">Group</label>
+      <select id="filter-employee-group" class="form-select form-control" aria-label="Select Group"
+        formControlName="filterGroup">
+        <option disabled selected value>Select Group</option>
+        <option *ngFor="let group of employeeService.uniqueGroup" [value]="group">{{group}}</option>
+      </select>
+    </div>
+    <div class="col-auto d-grid gap-2 d-md-flex">
+      <button class="btn btn-primary" type="submit" [disabled]="!filterForm.valid">Apply</button>
+      <button class="btn btn-secondary" (click)="resetFilter()">Reset</button>
+    </div>
+
+  </form>
+  <a class="btn btn-success" role="button" [routerLink]="['/employee-add']">Add Employee</a>
+</div>
+
+<table class="table table-striped table-hover table-responsive align-middle mt-5">
+  <thead>
+    <tr>
+      <th scope="col" sortable="username" (sort)="onSort($any($event))">Username</th>
+      <th scope="col" sortable="firstName" (sort)="onSort($any($event))">First Name</th>
+      <th scope="col" sortable="lastName" (sort)="onSort($any($event))">Last Name</th>
+      <th scope="col" sortable="email" (sort)="onSort($any($event))">Email</th>
+      <th scope="col" sortable="birthDate" (sort)="onSort($any($event))">Birth Date</th>
+      <th scope="col" sortable="basicSalary" (sort)="onSort($any($event))">Basic Salary</th>
+      <th scope="col" sortable="status" (sort)="onSort($any($event))">Status</th>
+      <th scope="col" sortable="group" (sort)="onSort($any($event))">Group</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let employee of employees; index as i">
+      <td [routerLink]="['/employee-detail', employee.username]" role="button">{{ employee.username }}</td>
+      <td [routerLink]="['/employee-detail', employee.username]" role="button">{{ employee.firstName }}</td>
+      <td [routerLink]="['/employee-detail', employee.username]" role="button">{{ employee.lastName }}</td>
+      <td [routerLink]="['/employee-detail', employee.username]" role="button">{{ employee.email }}</td>
+      <td [routerLink]="['/employee-detail', employee.username]" role="button">{{ employee.birthDate | date:'shortDate'
+        }}</td>
+      <td [routerLink]="['/employee-detail', employee.username]" role="button">{{ employee.basicSalary | currency:'Rp.
+        ':'symbol'}}
+      </td>
+      <td [routerLink]="['/employee-detail', employee.username]" role="button">{{ employee.status }}</td>
+      <td [routerLink]="['/employee-detail', employee.username]" role="button">{{ employee.group }}</td>
+      <td>
+        <div class="d-grid gap-2 d-md-flex">
+          <button class="btn btn-warning" type="button"
+            (click)="showActionToast(employee.username, 'Edit')">Edit</button>
+          <button class="btn btn-danger" type="button"
+            (click)="showActionToast(employee.username, 'Delete')">Delete</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="d-flex justify-content-between p-2">
+  <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+    (pageChange)="refreshEmployees()">
+  </ngb-pagination>
+
+  <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshEmployees()">
+    <option [ngValue]="5">5 items per page</option>
+    <option [ngValue]="10">10 items per page</option>
+    <option [ngValue]="20">20 items per page</option>
+  </select>
+</div>

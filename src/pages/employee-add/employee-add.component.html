@@ -1,0 +1,92 @@
+<form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()" class="row align-items-md-end needs-validation">
+    <div class="row p-md-4">
+        <div class="mb-3 col-4">
+            <label for="username" class="form-label">User Name</label>
+            <input formControlName="username" type="text" class="form-control" id="username"
+                placeholder="Input User Name">
+            <small class="text-danger"
+                *ngIf="(f['username'].touched || submitted) && f['username'].errors?.['required']">User Name is
+                required</small>
+        </div>
+        <div class="mb-3 col-4">
+            <label for="firstName" class="form-label">First Name</label>
+            <input formControlName="firstName" type="text" class="form-control" id="firstName"
+                placeholder="Input First Name">
+            <small class="text-danger"
+                *ngIf="(f['firstName'].touched || submitted) && f['firstName'].errors?.['required']">First Name is
+                required</small>
+        </div>
+        <div class="mb-3 col-4">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input formControlName="lastName" type="text" class="form-control" id="lastName"
+                placeholder="Input Last Name">
+            <small class="text-danger"
+                *ngIf="(f['lastName'].touched || submitted) && f['lastName'].errors?.['required']">Last Name is
+                required</small>
+        </div>
+        <div class="mb-3 col-4">
+            <label for="email" class="form-label">Email</label>
+            <input formControlName="email" type="email" class="form-control" id="email" placeholder="Input Email" email>
+            <small class="text-danger"
+                *ngIf="(f['email'].touched || submitted) && f['email'].errors?.['required']">Email
+                is
+                required</small>
+            <small class="text-danger"
+                *ngIf="(f['email'].touched || submitted) && (f['email'].errors?.['email'] || f['email'].errors?.['pattern'])">Please
+                enter a valid Email</small>
+
+        </div>
+        <div class="mb-3 col-4">
+            <label for="basicSalary" class="form-label">Basic Salary</label>
+            <!-- [value]="parseInt(addEmployeeForm.get('basicSalary')?.value) | currency:'Rp.
+            ':'symbol'" -->
+            <input formControlName="basicSalary" type="text" class="form-control" id="basicSalary"
+                placeholder="Input Last Name">
+            <small class="text-danger"
+                *ngIf="(f['basicSalary'].touched || submitted) && f['basicSalary'].errors?.['required']">Basic Salary is
+                required</small>
+            <small class="text-danger"
+                *ngIf="(f['basicSalary'].touched || submitted) && f['basicSalary'].errors?.['pattern']">Basic Salary
+                format is xxxx,xx</small>
+        </div>
+        <div class="mb-3 col-4">
+            <label for="birthDate" class="form-label">Birth Date</label>
+            <input formControlName="birthDate" type="date" class="form-control" id="birthDate">
+            <small class="text-danger"
+                *ngIf="(f['birthDate'].touched || submitted) && f['birthDate'].errors?.['required']">Birth Date is
+                required</small>
+        </div>
+        <div class="mb-3 col-6">
+            <label for="status" class="form-label">Status</label>
+            <select id="status" class="form-select form-control" formControlName="status">
+                <option disabled selected value>Select Status</option>
+                <option value="1">Permanent</option>
+                <option value="2">Contract</option>
+            </select>
+            <small class="text-danger"
+                *ngIf="(f['status'].touched || submitted) && f['status'].errors?.['required']">Status is
+                required</small>
+        </div>
+        <div class="mb-3 col-6">
+            <label for="group" class="form-label">Group</label>
+            <select id="group" class="form-select form-control" formControlName="group">
+                <option disabled selected value>Select Group</option>
+                <option *ngFor="let item of employeeService.uniqueGroup" [value]="item">{{item}}</option>
+            </select>
+            <small class="text-danger"
+                *ngIf="(f['group'].touched || submitted) && f['group'].errors?.['required']">Group is required</small>
+        </div>
+        <div class="mb-3 col-12">
+            <label for="description" class="form-label">Description</label>
+            <textarea formControlName="description" class="form-control" style="resize: none;" id="description"
+                rows="3"></textarea>
+            <small class="text-danger"
+                *ngIf="(f['description'].touched || submitted) && f['description'].errors?.['required']">Description is
+                required</small>
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-end my-4">
+            <button class="btn btn-secondary" type="button">Cancel</button>
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+    </div>
+</form>

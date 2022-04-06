@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-md-3 border-end pt-5">
+        <div class="text-center">
+            <div
+                class="avatar bg-secondary text-white m-auto mb-3 d-flex justify-content-center align-items-center fs-2">
+                {{employee?.firstName?.charAt(0)}}
+            </div>
+            <h5 class="mb-0">{{employee?.firstName}} {{employee?.lastName}}</h5>
+            <p class="mb-0">{{employee?.username}}</p>
+            <p class="mb-0">{{employee?.email}}</p>
+            <div class="d-grid mt-4 col-8 mx-auto">
+                <a [routerLink]="['']" class="btn btn-primary">Okay</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 px-md-5 pt-3">
+        <h4 class="card-title mb-3">Employee Detail</h4>
+        <div class="row">
+            <div class="mb-3 col-6">
+                <label for="firstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="firstName" [value]="employee?.firstName" readonly>
+            </div>
+            <div class="mb-3 col-6">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lastName" [value]="employee?.lastName" readonly>
+            </div>
+            <div class="mb-3 col-12">
+                <label for="basicSalary" class="form-label">Basic Salary</label>
+                <input type="text" class="form-control" id="basicSalary"
+                    [value]="employee?.basicSalary | currency:'Rp. ':'symbol'" readonly>
+            </div>
+            <div class="mb-3 col-12">
+                <label for="birthDate" class="form-label">Birth Date</label>
+                <input type="text" class="form-control" id="birthDate" [value]="employee?.birthDate | date:'longDate'"
+                    readonly>
+            </div>
+            <div class="mb-3 col-12">
+                <label for="status" class="form-label">Status</label>
+                <input type="text" class="form-control" id="status" [value]="employee?.status" readonly>
+            </div>
+            <div class="mb-3 col-12">
+                <label for="group" class="form-label">Group</label>
+                <input type="text" class="form-control" id="group" [value]="employee?.group" readonly>
+            </div>
+            <div class="mb-3 col-12">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" style="resize: none;" id="description" rows="3"
+                    readonly>{{employee?.description}}</textarea>
+            </div>
+        </div>
+    </div>
+</div>
